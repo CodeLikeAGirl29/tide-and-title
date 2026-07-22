@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "@tailwindcss/typography";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --font-sans: var(--font-body-sans);
+  --font-display: var(--font-display-serif);
+  --font-mono: var(--font-mono-plex);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: #16232f;
+  --color-ink-soft: #45566a;
+  --color-parchment: #f1e9d8;
+  --color-parchment-line: #d8cbae;
+  --color-depth: #2f6b67;
+  --color-buoy: #bb4430;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+}
+
+/* Faint nautical-chart graticule used behind the hero */
+.chart-grid {
+  background-image:
+    linear-gradient(to right, var(--color-parchment-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-parchment-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Underline that grows in from the left on hover, like a bearing line being drawn */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 1px;
+  background-color: var(--color-buoy);
+  transition: right 0.25s ease;
+}
+
+.nav-link:hover::after {
+  right: 0;
 }
